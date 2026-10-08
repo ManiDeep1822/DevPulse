@@ -1,50 +1,47 @@
-import React from 'react';
-import Navbar from '../components/Navbar';
+import React, { useState } from 'react';
+import Sidebar from '../components/Sidebar';
+import TopHeader from '../components/TopHeader';
 import MetricsBar from '../components/MetricsBar';
 import Board from '../components/Board';
+import TaskListView from '../components/TaskListView';
 import TaskModal from '../components/TaskModal';
 import ActivityDrawer from '../components/ActivityDrawer';
-import { Sparkles, GitBranch, ShieldCheck } from 'lucide-react';
+import { useTasks } from '../context/TaskContext';
 
 const DashboardPage = () => {
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const { viewMode } = useTasks();
+
   return (
-    <div className="min-h-screen bg-slate-950 flex flex-col selection:bg-indigo-500 selection:text-white">
-      {/* Top Navbar */}
-      <Navbar />
+    <div className="min-h-screen bg-zinc-950 text-zinc-100 flex">
+      {/* Enterprise Collapsible Sidebar */}
+      <Sidebar
+        isCollapsed={isSidebarCollapsed}
+        setIsCollapsed={setIsSidebarCollapsed}
+      />
 
-      {/* Main Board View */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 pt-6">
-        {/* Banner with Sprint status & quick context */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2">
-          <div>
-            <h2 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight flex items-center gap-2">
-              Sprint 12: Core Infrastructure & Features
-            </h2>
-            <p className="text-xs text-slate-400 mt-1 flex items-center gap-2">
-              <span className="inline-flex items-center gap-1 text-indigo-400 font-medium">
-                <GitBranch className="w-3.5 h-3.5" /> main branch
-              </span>
-              <span>•</span>
-              <span>10 Total Engineering Work Items</span>
-            </p>
+      {/* Main Content Area */}
+      <div
+        className={`flex-1 flex flex-col min-w-0 transition-all duration-200 ${
+          isSidebarCollapsed ? 'pl-16' : 'pl-64'
+        }`}
+      >
+        {/* Top Header */}
+        <TopHeader isSidebarCollapsed={isSidebarCollapsed} />
+
+        {/* Workspace Canvas */}
+        <main className="flex-1 px-4 sm:px-6 py-4 max-w-7xl w-full mx-auto">
+          {/* Metrics Ribbon */}
+          <MetricsBar />
+
+          {/* Active View: Board or List */}
+          <div className="mt-4">
+            {viewMode === 'board' ? <Board /> : <TaskListView />}
           </div>
+        </main>
+      </div>
 
-          <div className="flex items-center gap-2 self-start sm:self-auto">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-              <ShieldCheck className="w-3.5 h-3.5" />
-              REST API Connected
-            </span>
-          </div>
-        </div>
-
-        {/* Metrics Summary Counters */}
-        <MetricsBar />
-
-        {/* Interactive Kanban Board */}
-        <Board />
-      </main>
-
-      {/* Modals & Slide-out Drawers */}
+      {/* Slide-overs & Modals */}
       <TaskModal />
       <ActivityDrawer />
     </div>

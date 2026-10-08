@@ -41,27 +41,30 @@ Designed with reviewer convenience in mind, the platform features a **"1-Click D
 
 ## ✨ Key Features
 
-### 1. Agile Kanban Board
-- Four distinct lifecycle columns: **To Do**, **In Progress**, **In Review**, and **Done**.
-- Smooth HTML5 **Drag-and-Drop** between columns with optimistic UI updates and resilient server rollback if a network error occurs.
-- Fallback keyboard/click "Move to..." menu on every card for accessibility.
+### 1. Dual View Switcher (Kanban Board + Enterprise List View)
+- **Interactive Kanban Board**: Four distinct lifecycle columns (**To Do**, **In Progress**, **In Review**, **Done**) with smooth HTML5 **Drag-and-Drop**, optimistic UI state synchronization, and resilient server rollback if a network issue occurs.
+- **Enterprise List / Table View**: High-density engineering backlog grid displaying issue IDs (`DEV-104`), titles, editable status tokens, priority badges, target due dates, and assignee avatars with sorting.
 
-### 2. Task Lifecycle & Attributes
+### 2. Enterprise App Shell & Navigation
+- **Collapsible Sidebar**: Workspace switcher (`StartupMeu PROD`), quick view selector (Board, List, Audit Trail), active sprint cycle completion bar, and quick priority filters.
+- **Top Context Bar**: Interactive breadcrumb navigation, search bar with filter matching, column dropdowns, audit log launcher, and "+ New Issue" trigger.
+
+### 3. Task Lifecycle & High-Density Attributes
 - **Priority Matrix**: Visual badges for `Urgent` (red), `High` (amber), `Medium` (sky), and `Low` (slate).
-- **Due Date Tracking**: Smart date formatting with red indicator alerts for overdue tasks.
+- **Due Date Tracking**: Calendar date formatting with automatic visual alerts for overdue tasks.
 - **Tagging System**: Multi-tag classification (e.g., `#Backend`, `#UI/UX`, `#Auth`, `#Performance`).
-- **Assignee Avatars**: Clear owner assignment on every card.
+- **Assignee Avatars**: Clear issue ownership with initials/avatar on every card and row.
 
-### 3. Real-Time Search & Priority Filtering
-- Instant, client-side debounced search filtering tasks by title, description, tags, or assignee.
-- Quick priority dropdown selector (`All`, `Urgent`, `High`, `Medium`, `Low`).
+### 4. Real-Time Search & Multi-Axis Filtering
+- Instant, client-side debounced search filtering tasks across title, description, tags, and assignee.
+- Quick priority dropdown selector (`All`, `Urgent`, `High`, `Medium`, `Low`) and column status filter.
 
-### 4. Live Activity Audit Log
-- Built-in audit trail tracking every task creation, column move, attribute update, and deletion.
-- Slide-over drawer with timestamped actions and user identities.
+### 5. Live Activity Audit Log (Immutable Event Ledger)
+- Built-in audit trail recording every task creation, column move, attribute update, and deletion.
+- Slide-over drawer with timestamped actions, actor identities, and status transitions.
 
-### 5. Reviewer-First Authentication
-- **⚡ 1-Click Demo Login**: Allows StartupMeu reviewers to evaluate the full application with admin privileges in one click without registering a throwaway account.
+### 6. Reviewer-First Enterprise Authentication
+- **1-Click Demo Reviewer Access**: Allows StartupMeu reviewers to evaluate the full application with admin privileges in one click without registering a throwaway account.
 - **Full JWT Authentication**: Secure registration and login with `bcryptjs` (salt rounds: 10) password hashing and token expiration.
 
 ---
@@ -247,14 +250,16 @@ Below are **5 specific tasks** where Code0 was utilized during development:
 StartMeu/
 ├── client/                     # Frontend Application (React 18 + Vite)
 │   ├── src/
-│   │   ├── components/         # Reusable UI Components
+│   │   ├── components/         # Reusable Enterprise UI Components
 │   │   │   ├── ActivityDrawer.jsx
 │   │   │   ├── Board.jsx
 │   │   │   ├── Column.jsx
 │   │   │   ├── MetricsBar.jsx
-│   │   │   ├── Navbar.jsx
+│   │   │   ├── Sidebar.jsx
 │   │   │   ├── TaskCard.jsx
-│   │   │   └── TaskModal.jsx
+│   │   │   ├── TaskListView.jsx
+│   │   │   ├── TaskModal.jsx
+│   │   │   └── TopHeader.jsx
 │   │   ├── context/            # React Context State Management
 │   │   │   ├── AuthContext.jsx
 │   │   │   └── TaskContext.jsx

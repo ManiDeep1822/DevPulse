@@ -12,9 +12,9 @@ const AppContent = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center text-slate-300">
-        <Loader2 className="w-10 h-10 animate-spin text-indigo-500 mb-4" />
-        <p className="text-sm font-semibold tracking-wide">Initializing DevPulse...</p>
+      <div className="min-h-screen bg-zinc-950 flex flex-col items-center justify-center text-zinc-300">
+        <Loader2 className="w-8 h-8 animate-spin text-zinc-400 mb-3" />
+        <p className="text-xs font-mono text-zinc-400 tracking-wide">Initializing DevPulse...</p>
       </div>
     );
   }

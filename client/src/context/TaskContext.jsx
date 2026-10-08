@@ -10,6 +10,8 @@ export const TaskProvider = ({ children }) => {
   const [loadingTasks, setLoadingTasks] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [priorityFilter, setPriorityFilter] = useState('all');
+  const [statusFilter, setStatusFilter] = useState('all');
+  const [viewMode, setViewMode] = useState('board'); // 'board' | 'list'
 
   const [activities, setActivities] = useState([]);
   const [loadingActivities, setLoadingActivities] = useState(false);
@@ -140,20 +142,23 @@ export const TaskProvider = ({ children }) => {
     setEditingTask(null);
   };
 
-  // Filter tasks based on search query and priority filter
+  // Filter tasks based on search query, priority filter, and status filter
   const filteredTasks = tasks.filter((task) => {
     const matchesPriority =
       priorityFilter === 'all' || task.priority === priorityFilter;
 
+    const matchesStatus =
+      statusFilter === 'all' || task.status === statusFilter;
+
     const query = searchQuery.toLowerCase().trim();
-    if (!query) return matchesPriority;
+    if (!query) return matchesPriority && matchesStatus;
 
     const matchesTitle = task.title?.toLowerCase().includes(query);
     const matchesDesc = task.description?.toLowerCase().includes(query);
     const matchesTags = task.tags?.some((tag) => tag.toLowerCase().includes(query));
     const matchesAssignee = task.assignee?.toLowerCase().includes(query);
 
-    return matchesPriority && (matchesTitle || matchesDesc || matchesTags || matchesAssignee);
+    return matchesPriority && matchesStatus && (matchesTitle || matchesDesc || matchesTags || matchesAssignee);
   });
 
   return (
@@ -166,6 +171,10 @@ export const TaskProvider = ({ children }) => {
         setSearchQuery,
         priorityFilter,
         setPriorityFilter,
+        statusFilter,
+        setStatusFilter,
+        viewMode,
+        setViewMode,
         activities,
         loadingActivities,
         isActivityOpen,

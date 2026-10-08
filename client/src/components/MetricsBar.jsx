@@ -1,5 +1,5 @@
 import React from 'react';
-import { CheckCircle2, Clock, AlertTriangle, Layers } from 'lucide-react';
+import { Layers, Clock, AlertTriangle, CheckCircle2 } from 'lucide-react';
 import { useTasks } from '../context/TaskContext';
 
 const MetricsBar = () => {
@@ -11,60 +11,32 @@ const MetricsBar = () => {
   const done = tasks.filter((t) => t.status === 'done').length;
   const percentComplete = total > 0 ? Math.round((done / total) * 100) : 0;
 
-  const metrics = [
-    {
-      label: 'Total Tasks',
-      value: total,
-      icon: Layers,
-      color: 'text-indigo-400',
-      bgColor: 'bg-indigo-500/10',
-      borderColor: 'border-indigo-500/20'
-    },
-    {
-      label: 'In Progress',
-      value: inProgress,
-      icon: Clock,
-      color: 'text-sky-400',
-      bgColor: 'bg-sky-500/10',
-      borderColor: 'border-sky-500/20'
-    },
-    {
-      label: 'High & Urgent',
-      value: urgentOrHigh,
-      icon: AlertTriangle,
-      color: 'text-amber-400',
-      bgColor: 'bg-amber-500/10',
-      borderColor: 'border-amber-500/20'
-    },
-    {
-      label: 'Completed',
-      value: `${done} (${percentComplete}%)`,
-      icon: CheckCircle2,
-      color: 'text-emerald-400',
-      bgColor: 'bg-emerald-500/10',
-      borderColor: 'border-emerald-500/20'
-    }
+  const items = [
+    { label: 'Total Issues', value: total, icon: Layers, color: 'text-zinc-300' },
+    { label: 'In Progress', value: inProgress, icon: Clock, color: 'text-sky-400' },
+    { label: 'High & Urgent', value: urgentOrHigh, icon: AlertTriangle, color: 'text-amber-400' },
+    { label: 'Resolved', value: `${done} (${percentComplete}%)`, icon: CheckCircle2, color: 'text-emerald-400' }
   ];
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 my-6">
-      {metrics.map((item, index) => {
-        const IconComponent = item.icon;
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 my-4">
+      {items.map((item, idx) => {
+        const Icon = item.icon;
         return (
           <div
-            key={index}
-            className={`p-3.5 sm:p-4 rounded-xl bg-slate-900/60 border ${item.borderColor} backdrop-blur-sm flex items-center justify-between transition-all hover:border-slate-700`}
+            key={idx}
+            className="p-3 rounded-lg bg-zinc-900/60 border border-zinc-800/80 flex items-center justify-between"
           >
             <div>
-              <p className="text-[11px] font-medium text-slate-400 uppercase tracking-wider">
+              <p className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider">
                 {item.label}
               </p>
-              <h3 className="text-xl sm:text-2xl font-bold text-white mt-1">
+              <p className="text-base font-semibold text-zinc-100 font-mono mt-0.5">
                 {item.value}
-              </h3>
+              </p>
             </div>
-            <div className={`w-10 h-10 rounded-lg ${item.bgColor} flex items-center justify-center`}>
-              <IconComponent className={`w-5 h-5 ${item.color}`} />
+            <div className="p-2 rounded bg-zinc-800/50 border border-zinc-750">
+              <Icon className={`w-3.5 h-3.5 ${item.color}`} />
             </div>
           </div>
         );

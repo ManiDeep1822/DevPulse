@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Kanban, Sparkles, Lock, Mail, ArrowRight, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { Lock, Mail, ArrowRight, AlertCircle, ShieldCheck, CheckCircle2 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 const LoginPage = ({ onNavigate }) => {
@@ -28,117 +28,111 @@ const LoginPage = ({ onNavigate }) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-slate-950 relative overflow-hidden">
-      {/* Decorative gradient glow in background */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-indigo-600/15 rounded-full blur-3xl pointer-events-none" />
-
-      <div className="w-full max-w-md relative z-10">
-        {/* Brand Header */}
-        <div className="text-center mb-8">
-          <div className="inline-flex w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-600 to-violet-500 items-center justify-center shadow-xl shadow-indigo-600/30 ring-1 ring-white/20 mb-3">
-            <Kanban className="w-6 h-6 text-white" />
+    <div className="min-h-screen flex items-center justify-center p-4 bg-zinc-950 text-zinc-100">
+      <div className="w-full max-w-sm">
+        {/* Brand */}
+        <div className="text-center mb-7">
+          <div className="inline-flex w-10 h-10 rounded-lg bg-zinc-900 border border-zinc-800 items-center justify-center text-zinc-100 font-mono font-bold text-sm tracking-wider mb-3 shadow-sm">
+            SM
           </div>
-          <h1 className="text-2xl font-extrabold text-white tracking-tight">Welcome to DevPulse</h1>
-          <p className="text-xs text-slate-400 mt-1">Full-Stack MERN Agile Kanban Workspace</p>
+          <h1 className="text-lg font-semibold text-zinc-100 tracking-tight">Sign in to DevPulse</h1>
+          <p className="text-xs text-zinc-500 mt-1 font-mono">StartupMeu Engineering Platform</p>
         </div>
 
-        {/* Card */}
-        <div className="rounded-2xl bg-slate-900/80 border border-slate-800 p-6 sm:p-8 backdrop-blur-xl shadow-2xl">
-          {/* Quick Evaluator Access Banner */}
-          <div className="mb-6 p-4 rounded-xl bg-gradient-to-r from-indigo-950/80 to-purple-950/80 border border-indigo-500/30">
-            <div className="flex items-center gap-2 text-indigo-300 text-xs font-semibold mb-1.5">
-              <Sparkles className="w-4 h-4 text-indigo-400" />
-              <span>StartupMeu Evaluator Access</span>
+        {/* Auth Card */}
+        <div className="rounded-xl bg-zinc-900/60 border border-zinc-800 p-6 shadow-xl">
+          {/* Reviewer Quick Access */}
+          <div className="mb-5 pb-5 border-b border-zinc-800">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-[11px] font-mono text-zinc-400 font-medium uppercase tracking-wider">
+                Assessment Review
+              </span>
+              <span className="inline-flex items-center gap-1 text-[10px] font-mono text-emerald-400 bg-emerald-950/40 border border-emerald-800/60 px-1.5 py-0.2 rounded">
+                <ShieldCheck className="w-2.5 h-2.5" /> Ready
+              </span>
             </div>
-            <p className="text-[11px] text-slate-300 mb-3 leading-relaxed">
-              Test all full-stack features, kanban workflows, and seeded tasks instantly with one click.
-            </p>
             <button
               type="button"
               onClick={handleDemoClick}
               disabled={isDemoSubmitting}
-              className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shadow-lg shadow-indigo-600/30 transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50"
+              className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-md bg-zinc-100 hover:bg-white text-zinc-950 text-xs font-semibold shadow-sm transition-all disabled:opacity-50"
             >
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>{isDemoSubmitting ? 'Authenticating Demo...' : '⚡ 1-Click Demo Login (Admin)'}</span>
+              <span>{isDemoSubmitting ? 'Authenticating...' : 'Continue as Demo Reviewer'}</span>
+              <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />
             </button>
+            <p className="text-[10px] text-zinc-500 text-center mt-2">
+              Instant administrator access without signup friction
+            </p>
           </div>
 
-          <div className="relative flex py-2 items-center mb-6">
-            <div className="flex-grow border-t border-slate-800"></div>
-            <span className="flex-shrink mx-4 text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
-              Or sign in with email
+          <div className="relative flex py-1 items-center mb-4">
+            <div className="flex-grow border-t border-zinc-800"></div>
+            <span className="flex-shrink mx-3 text-[10px] font-mono text-zinc-500 uppercase tracking-wider">
+              Or credentials
             </span>
-            <div className="flex-grow border-t border-slate-800"></div>
+            <div className="flex-grow border-t border-zinc-800"></div>
           </div>
 
           {/* Error notification */}
           {authError && (
-            <div className="mb-5 p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 flex items-center gap-2 text-rose-400 text-xs">
-              <AlertCircle className="w-4 h-4 shrink-0" />
+            <div className="mb-4 p-2.5 rounded-md bg-rose-950/30 border border-rose-800/60 flex items-center gap-2 text-rose-400 text-xs font-mono">
+              <AlertCircle className="w-3.5 h-3.5 shrink-0" />
               <span>{authError}</span>
             </div>
           )}
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-3.5">
             <div>
-              <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
-                Email Address
+              <label className="block text-[11px] font-mono text-zinc-400 uppercase tracking-wider mb-1">
+                Email
               </label>
-              <div className="relative">
-                <Mail className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                <input
-                  type="email"
-                  placeholder="demo@devpulse.io"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-sm text-slate-100 placeholder-slate-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
-                />
-              </div>
+              <input
+                type="email"
+                placeholder="demo@devpulse.io"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full bg-zinc-950 border border-zinc-800 rounded-md px-3 py-1.5 text-xs text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-zinc-600 focus:ring-1 focus:ring-zinc-600 transition-colors"
+              />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+              <label className="block text-[11px] font-mono text-zinc-400 uppercase tracking-wider mb-1">
                 Password
               </label>
-              <div className="relative">
-                <Lock className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                <input
-                  type="password"
-                  placeholder="••••••••"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-sm text-slate-100 placeholder-slate-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
-                />
-              </div>
+              <input
+                type="password"
+                placeholder="••••••••"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full bg-zinc-950 border border-zinc-800 rounded-md px-3 py-1.5 text-xs text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-zinc-600 focus:ring-1 focus:ring-zinc-600 transition-colors"
+              />
             </div>
 
             <button
               type="submit"
               disabled={submitting}
-              className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white text-xs font-bold border border-slate-700 transition-all disabled:opacity-50 mt-2"
+              className="w-full py-1.5 px-3 rounded-md bg-zinc-800 hover:bg-zinc-750 text-zinc-200 hover:text-white text-xs font-medium border border-zinc-700 transition-all disabled:opacity-50 mt-1"
             >
-              <span>{submitting ? 'Signing in...' : 'Sign In'}</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              {submitting ? 'Authenticating...' : 'Sign In'}
             </button>
           </form>
 
-          {/* Bottom Switcher */}
-          <div className="mt-6 text-center text-xs text-slate-400">
-            Don't have an account?{' '}
+          {/* Switcher */}
+          <div className="mt-4 pt-3 border-t border-zinc-800/80 text-center text-xs text-zinc-500">
+            Need an account?{' '}
             <button
               onClick={() => onNavigate('register')}
-              className="font-semibold text-indigo-400 hover:text-indigo-300 ml-1 transition-colors"
+              className="font-medium text-zinc-300 hover:text-white ml-1 transition-colors"
             >
               Create Account
             </button>
           </div>
         </div>
 
-        {/* Footer info */}
-        <p className="text-center text-[11px] text-slate-500 mt-6">
-          DevPulse Assessment Project · Built by Mani Deep
+        {/* Footer */}
+        <p className="text-center text-[10px] font-mono text-zinc-600 mt-5">
+          DevPulse · MERN Assessment · Lovely Professional University
         </p>
       </div>
     </div>
